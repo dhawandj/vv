@@ -1,8 +1,9 @@
 export interface Service {
-  id: string;
-  title: string;
-  description: string;
-  icon: string;
+  id: string
+  title: string
+  description: string
+  points: string[]
+  icon: string
 }
 
 export interface Project {

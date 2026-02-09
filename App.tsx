@@ -55,11 +55,11 @@ const App: React.FC = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 relative z-10">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-12 text-center">
             <div className="group">
-              <div className="text-5xl md:text-7xl font-oswald font-bold text-white mb-2 group-hover:text-orange-500 transition-colors">15<span className="text-orange-500">+</span></div>
+              <div className="text-5xl md:text-7xl font-oswald font-bold text-white mb-2 group-hover:text-orange-500 transition-colors">7<span className="text-orange-500">+</span></div>
               <div className="text-neutral-500 uppercase tracking-widest text-xs font-bold">Years Active</div>
             </div>
             <div className="group">
-              <div className="text-5xl md:text-7xl font-oswald font-bold text-white mb-2 group-hover:text-orange-500 transition-colors">300<span className="text-orange-500">+</span></div>
+              <div className="text-5xl md:text-7xl font-oswald font-bold text-white mb-2 group-hover:text-orange-500 transition-colors">20<span className="text-orange-500">+</span></div>
               <div className="text-neutral-500 uppercase tracking-widest text-xs font-bold">Projects Live</div>
             </div>
             <div className="group">
@@ -182,35 +182,58 @@ const App: React.FC = () => {
   // For brevity in this big file, I'll inline the simple page renders with the new styles
 
   const renderServices = () => (
-    <div className="pt-24 pb-20 bg-neutral-950 min-h-screen">
-      <WhatsAppQuoteForm />
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <h1 className="text-5xl md:text-6xl font-oswald font-bold text-white mb-4 uppercase">Our Expertise</h1>
-          <p className="text-xl text-neutral-400 max-w-3xl mx-auto">Precision engineering across all sectors.</p>
-        </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {SERVICES.map((service) => (
-            <div key={service.id} className="bg-neutral-900 border border-neutral-800 p-8 hover:border-orange-500 transition-all group">
-               <div className="text-orange-500 mb-6">
-                 {/* Pseudo-icons */}
-                 <div className="h-12 w-12 border-2 border-orange-500 flex items-center justify-center font-bold text-xl group-hover:bg-orange-500 group-hover:text-black transition-colors">
-                    {service.id}
-                 </div>
-               </div>
-               <h3 className="text-3xl font-oswald font-bold text-white mb-4 uppercase">{service.title}</h3>
-               <p className="text-neutral-400 mb-6 leading-relaxed">{service.description}</p>
-               <ul className="space-y-3 text-neutral-300 text-sm font-mono">
-                    <li className="flex items-center"><span className="text-orange-500 mr-2">&gt;</span> ISO 9001 Certified</li>
-                    <li className="flex items-center"><span className="text-orange-500 mr-2">&gt;</span> Sustainable Materials</li>
-                    <li className="flex items-center"><span className="text-orange-500 mr-2">&gt;</span> Strategic Planning</li>
-               </ul>
+  <div className="pt-24 pb-20 bg-neutral-950 min-h-screen">
+    <WhatsAppQuoteForm />
+
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="text-center mb-16">
+        <h1 className="text-5xl md:text-6xl font-oswald font-bold text-white mb-4 uppercase">
+          Our Expertise
+        </h1>
+        <p className="text-xl text-neutral-400 max-w-3xl mx-auto">
+          Precision engineering across all sectors.
+        </p>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        {SERVICES.map((service, index) => (
+          <div
+            key={service.id}
+            className="bg-neutral-900 border border-neutral-800 p-8 hover:border-orange-500 transition-all group"
+          >
+            {/* Icon / Index */}
+            <div className="text-orange-500 mb-6">
+              <div className="h-12 w-12 border-2 border-orange-500 flex items-center justify-center font-bold text-xl group-hover:bg-orange-500 group-hover:text-black transition-colors">
+                {String(index + 1).padStart(2, '0')}
+              </div>
             </div>
-          ))}
-        </div>
+
+            {/* Title */}
+            <h3 className="text-3xl font-oswald font-bold text-white mb-4 uppercase">
+              {service.title}
+            </h3>
+
+            {/* Description */}
+            <p className="text-neutral-400 mb-6 leading-relaxed">
+              {service.description}
+            </p>
+
+            {/* Points */}
+            <ul className="space-y-3 text-neutral-300 text-sm font-mono">
+              {service.points.map((point, i) => (
+                <li key={i} className="flex items-start">
+                  <span className="text-orange-500 mr-2">&gt;</span>
+                  <span>{point}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
       </div>
     </div>
-  );
+  </div>
+);
+
 
   const renderProjects = () => (
     <div className="pt-24 pb-20 bg-neutral-950 min-h-screen">

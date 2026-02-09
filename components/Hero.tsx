@@ -48,8 +48,8 @@ const Hero: React.FC<HeroProps> = ({ onNavigate }) => {
                         <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-500 to-yellow-500">Ideas</span> <br />
                         To Reality
                     </h1>
-                    <p className="text-lg md:text-xl text-neutral-300 mb-8 max-w-lg leading-relaxed border-l-4 border-orange-500 pl-6 bg-black/30 backdrop-blur-sm py-2">
-                        Avinya Ventures merges industrial expertise with engineering precision. We build structures that define skylines and stand the test of time.
+                    <p className="text-lg md:text-xl capitalize text-neutral-300 mb-8 max-w-lg leading-relaxed border-l-4 border-orange-500 pl-6 bg-black/30 backdrop-blur-sm py-2">
+                        “From planning and guidance to execution, we focus on clarity, coordination, and long-term value.”
                     </p>
                     
                     <div className="flex flex-col sm:flex-row gap-5">
