@@ -12,6 +12,7 @@ export interface Project {
   category: string;
   imageUrl: string;
   description: string;
+  details: string[];
 }
 
 export interface Testimonial {
@@ -26,6 +27,7 @@ export enum Page {
   HOME = 'HOME',
   SERVICES = 'SERVICES',
   PROJECTS = 'PROJECTS',
+  PROJECT_DETAIL = 'PROJECT_DETAIL',
   ABOUT = 'ABOUT',
   CONTACT = 'CONTACT',
   PLANNING = 'PLANNING'

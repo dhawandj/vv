@@ -1,148 +1,152 @@
 import React, { useState } from 'react';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
-import ServiceCard from './components/ServiceCard';
 import ContactForm from './components/ContactForm';
 import WhatsAppQuoteForm from './components/WhatsAppQuoteForm';
 import ConstructionPlanner from './components/ConstructionPlanner';
-import ProjectScroller from './components/ProjectScroller';
-import { Page } from './types';
+import { Page, Project } from './types';
 import { SERVICES, PROJECTS, TESTIMONIALS, COMPANY_NAME } from './constants';
-import { Quote, ArrowRight, Instagram, Linkedin, Facebook, Star, ArrowUpRight, Calculator } from 'lucide-react';
+import { Quote, ArrowRight, Instagram, Linkedin, Facebook, Star, ArrowUpRight } from 'lucide-react';
 
 const App: React.FC = () => {
   const [currentPage, setCurrentPage] = useState<Page>(Page.HOME);
+  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
 
   const handleNavigate = (page: Page) => {
     setCurrentPage(page);
     window.scrollTo(0, 0);
   };
 
+  const handleOpenProject = (project: Project) => {
+    setSelectedProject(project);
+    setCurrentPage(Page.PROJECT_DETAIL);
+    window.scrollTo(0, 0);
+  };
+
   const renderHome = () => (
     <>
-      <WhatsAppQuoteForm />
+      {/* <WhatsAppQuoteForm /> */}
       <Hero onNavigate={handleNavigate} />
       
-      {/* Horizontal Project Scroller */}
-      <ProjectScroller />
-      
-      {/* Services Preview - Brutalist Grid */}
-      <section className="py-24 bg-neutral-950 relative">
-        <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-neutral-800 to-transparent"></div>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 animate-enter">
-             <div>
-                <span className="text-orange-500 font-bold tracking-widest uppercase text-sm">Capabilities</span>
-                <h2 className="text-4xl md:text-5xl font-oswald font-bold text-white mt-2 uppercase">Core Operations</h2>
-             </div>
-             <p className="text-neutral-400 max-w-md mt-4 md:mt-0 text-right md:text-left border-l-2 border-orange-500 pl-4">
-                 Engineering precision meets architectural art. We handle complexities others can't.
-             </p>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {SERVICES.map((service) => (
-              <ServiceCard key={service.id} service={service} />
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Modern Stats Section */}
-      <section className="bg-neutral-900 border-y border-neutral-800 relative overflow-hidden">
-        {/* Animated background lines */}
-        <div className="absolute inset-0 opacity-10" style={{backgroundImage: 'repeating-linear-gradient(45deg, #000 25%, transparent 25%, transparent 75%, #000 75%, #000), repeating-linear-gradient(45deg, #000 25%, #1a1a1a 25%, #1a1a1a 75%, #000 75%, #000)', backgroundPosition: '0 0, 10px 10px', backgroundSize: '20px 20px'}}></div>
-        
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 relative z-10">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-12 text-center">
-            <div className="group">
-              <div className="text-5xl md:text-7xl font-oswald font-bold text-white mb-2 group-hover:text-orange-500 transition-colors">7<span className="text-orange-500">+</span></div>
-              <div className="text-neutral-500 uppercase tracking-widest text-xs font-bold">Years Active</div>
+      {/* Why Choose Us - Inline Flat Grid */}
+      <section className="bg-white py-12 px-4 border-b border-gray-100">
+        <div className="max-w-7xl mx-auto">
+          <h2 className="text-xl font-bold text-center text-gray-900 mb-6 tracking-wide">Why Choose Us</h2>
+          <div className="grid grid-cols-3 gap-3">
+            <div className="bg-orange-50/40 p-4 rounded-xl border border-orange-100 text-center flex flex-col justify-center">
+              <div className="text-lg md:text-2xl font-black text-orange-600">20+</div>
+              <div className="text-[10px] uppercase font-bold text-gray-500 tracking-tight mt-1">Years Exp</div>
             </div>
-            <div className="group">
-              <div className="text-5xl md:text-7xl font-oswald font-bold text-white mb-2 group-hover:text-orange-500 transition-colors">20<span className="text-orange-500">+</span></div>
-              <div className="text-neutral-500 uppercase tracking-widest text-xs font-bold">Projects Live</div>
+            <div className="bg-gray-50 p-4 rounded-xl border border-gray-100 text-center flex flex-col justify-center">
+              <div className="text-lg md:text-2xl font-black text-gray-900">1000+</div>
+              <div className="text-[10px] uppercase font-bold text-gray-500 tracking-tight mt-1">Built</div>
             </div>
-            <div className="group">
-              <div className="text-5xl md:text-7xl font-oswald font-bold text-white mb-2 group-hover:text-orange-500 transition-colors">50<span className="text-orange-500">+</span></div>
-              <div className="text-neutral-500 uppercase tracking-widest text-xs font-bold">Elite Staff</div>
-            </div>
-            <div className="group">
-              <div className="text-5xl md:text-7xl font-oswald font-bold text-white mb-2 group-hover:text-orange-500 transition-colors">100<span className="text-orange-500">%</span></div>
-              <div className="text-neutral-500 uppercase tracking-widest text-xs font-bold">Satisfaction</div>
+            <div className="bg-gray-50 p-4 rounded-xl border border-gray-100 text-center flex flex-col justify-center">
+              <div className="text-lg md:text-2xl font-black text-gray-900">100%</div>
+              <div className="text-[10px] uppercase font-bold text-gray-500 tracking-tight mt-1">Happy</div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Featured Projects Preview - 3D Hover Cards */}
-      <section className="py-24 bg-neutral-950">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-end mb-12">
-            <div>
-               <span className="text-orange-500 font-bold tracking-widest uppercase text-sm">Portfolio</span>
-               <h2 className="text-4xl md:text-5xl font-oswald font-bold text-white mt-2 uppercase">Selected Works</h2>
-            </div>
-            <button onClick={() => handleNavigate(Page.PROJECTS)} className="hidden md:flex items-center text-white font-bold hover:text-orange-500 transition-colors uppercase tracking-wider">
-              Full Gallery <ArrowRight className="ml-2 h-5 w-5" />
-            </button>
+      {/* Featured Projects - Pure Horizontal Touch Carousel */}
+      <section className="py-14 bg-gray-50/50">
+        <div className="max-w-7xl mx-auto">
+          <div className="px-4 mb-6 flex justify-between items-end">
+             <h2 className="text-xl font-bold text-gray-900 tracking-wide">Featured Projects</h2>
+             <span className="text-xs text-gray-400 font-medium">Swipe →</span>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {PROJECTS.slice(0, 3).map((project) => (
-              <div key={project.id} className="group relative h-96 perspective-1000 cursor-pointer" onClick={() => handleNavigate(Page.PROJECTS)}>
-                {/* Image Layer */}
-                <div className="absolute inset-0 bg-neutral-800 overflow-hidden rounded-none border border-neutral-800 transition-transform duration-500 group-hover:scale-[1.02] group-hover:shadow-[0_0_30px_rgba(249,115,22,0.2)]">
+          
+          {/* Snap-scrolling Carousel Container */}
+          <div className="flex overflow-x-auto snap-x snap-mandatory space-x-4 px-4 pb-4 scrollbar-none">
+            {PROJECTS.map((project) => (
+              <div 
+                key={project.id} 
+                className="min-w-[280px] sm:min-w-[340px] max-w-[340px] bg-white border border-gray-200/80 rounded-2xl overflow-hidden snap-start flex-shrink-0 shadow-sm hover:shadow-md transition-shadow cursor-pointer"
+                onClick={() => handleNavigate(Page.PROJECTS)}
+              >
+                <div className="relative h-44 overflow-hidden bg-gray-100">
                   <img 
                     src={project.imageUrl} 
                     alt={project.title} 
-                    className="w-full h-full object-cover opacity-60 group-hover:opacity-100 group-hover:scale-110 transition-all duration-700 grayscale group-hover:grayscale-0" 
+                    className="w-full h-full object-cover" 
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent opacity-90 transition-opacity"></div>
+                  <div className="absolute top-3 left-3 bg-white/90 backdrop-blur-sm text-[10px] font-bold text-orange-600 px-2.5 py-1 rounded-md uppercase tracking-wider shadow-sm border border-orange-100">
+                    {project.category}
+                  </div>
                 </div>
-                
-                {/* Text Content */}
-                <div className="absolute bottom-0 left-0 p-8 w-full">
-                   <div className="transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
-                        <p className="text-orange-500 text-xs font-bold uppercase tracking-widest mb-2 flex items-center">
-                            <span className="w-8 h-[2px] bg-orange-500 mr-2"></span>
-                            {project.category}
-                        </p>
-                        <h3 className="text-2xl font-oswald font-bold text-white mb-2 uppercase leading-none">{project.title}</h3>
-                        <p className="text-neutral-400 text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100 line-clamp-2">
-                            {project.description}
-                        </p>
-                   </div>
+                <div className="p-4">
+                    <h3 className="text-base font-bold text-gray-900 mb-1">{project.title}</h3>
+                    <p className="text-gray-500 text-xs line-clamp-2 leading-relaxed">
+                        {project.description}
+                    </p>
                 </div>
-                
-                {/* Hover Border */}
-                <div className="absolute inset-0 border border-orange-500/0 group-hover:border-orange-500/50 transition-all duration-500 scale-95 group-hover:scale-100 pointer-events-none"></div>
               </div>
             ))}
-          </div>
-          <div className="mt-8 text-center md:hidden">
-             <button onClick={() => handleNavigate(Page.PROJECTS)} className="inline-flex items-center text-white border border-neutral-700 px-6 py-3 uppercase tracking-widest font-bold hover:bg-neutral-800">
-              View All <ArrowRight className="ml-2 h-4 w-4" />
-            </button>
           </div>
         </div>
       </section>
 
-      {/* Testimonials - Dark Cards */}
-      <section className="py-24 bg-neutral-900 border-t border-neutral-800">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl md:text-4xl font-oswald font-bold text-center text-white mb-16 uppercase">Client Validations</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {TESTIMONIALS.map((t) => (
-              <div key={t.id} className="bg-neutral-950 p-8 border border-neutral-800 relative group hover:border-orange-500/30 transition-colors">
-                <Quote className="absolute top-6 right-6 h-10 w-10 text-neutral-800 group-hover:text-orange-500/20 transition-colors" />
-                <div className="flex mb-4">
-                    {[1,2,3,4,5].map(i => <Star key={i} className="h-4 w-4 text-orange-500 fill-current" />)}
-                </div>
-                <p className="text-neutral-300 italic mb-8 relative z-10 font-light leading-relaxed">"{t.content}"</p>
-                <div className="flex items-center border-t border-neutral-800 pt-6">
-                  <img src={t.avatarUrl} alt={t.name} className="h-12 w-12 grayscale group-hover:grayscale-0 transition-all rounded-full object-cover mr-4 ring-2 ring-neutral-800" />
+      {/* Services Section - Updated to clean 2-Column Balanced Grid */}
+      <section className="py-14 bg-white border-t border-gray-100">
+        <div className="max-w-7xl mx-auto px-4">
+          <div className="mb-8">
+            <h2 className="text-xl font-bold text-gray-900 tracking-wide">Services</h2>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {SERVICES.slice(0, 3).map((service, index) => {
+              // Third card receives unique layout styling rules matching the theme accent configuration
+              const isThird = index === 2;
+              return (
+                <div 
+                  key={service.id} 
+                  className={`p-6 rounded-2xl flex flex-col justify-between min-h-[190px] border transition-all ${
+                    isThird 
+                      ? 'bg-orange-600 border-orange-700 text-white shadow-lg shadow-orange-600/10 md:col-span-2' 
+                      : 'bg-gray-50 border-gray-200 text-gray-900'
+                  }`}
+                >
                   <div>
-                    <h4 className="font-bold text-white uppercase text-sm tracking-wide">{t.name}</h4>
-                    <p className="text-neutral-500 text-xs uppercase tracking-widest">{t.role}</p>
+                    <h3 className={`text-base font-bold mb-2 flex items-center justify-between ${isThird ? 'text-white' : 'text-gray-900'}`}>
+                      {service.title}
+                    </h3>
+                    <p className={`text-xs line-clamp-3 leading-relaxed ${isThird ? 'text-orange-50' : 'text-gray-500'}`}>
+                      {service.description}
+                    </p>
+                  </div>
+                  <div className="mt-4 pt-2 flex justify-between items-center">
+                    <button className={`text-xs font-bold px-4 py-2 rounded-lg transition-colors shadow-sm ${
+                      isThird ? 'bg-white text-orange-600 hover:bg-orange-50' : 'bg-orange-600 text-white hover:bg-orange-700'
+                    }`}>
+                      Learn More
+                    </button>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>  
+      </section>
+
+      {/* Testimonials - Styled Carousel Rows */}
+      <section className="py-14 bg-gray-50/50 border-t border-gray-100">
+        <div className="max-w-7xl mx-auto px-4">
+          <h2 className="text-xl font-bold text-gray-900 mb-8 tracking-wide">Reality</h2>
+          <div className="flex overflow-x-auto snap-x snap-mandatory space-x-4 pb-4 scrollbar-none">
+            {TESTIMONIALS.map((t) => (
+              <div key={t.id} className="min-w-[290px] max-w-[290px] bg-white p-5 rounded-2xl border border-gray-200 snap-start flex-shrink-0 flex flex-col justify-between shadow-sm">
+                <div>
+                  <div className="flex mb-3">
+                      {/* {[1,2,3,4,5].map(i => <Star key={i} className="h-3 w-3 text-orange-500 fill-current" />)} */}
+                    <h4 className="font-bold text-gray-900 text-lg">{t.name}</h4>
+
+                  </div>
+                  <p className="text-gray-600 italic text-xs leading-relaxed">"{t.content}"</p>
+                </div>
+                <div className="flex items-center border-t border-gray-100 mt-4 pt-3">
+                  {/* <img src={t.avatarUrl} alt={t.name} className="h-8 w-8 rounded-full object-cover mr-3 ring-1 ring-gray-200" /> */}
+                  <div>
+                    {/* <p className="text-gray-400 text-[10px]">{t.role}</p> */}
                   </div>
                 </div>
               </div>
@@ -151,26 +155,29 @@ const App: React.FC = () => {
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="py-24 bg-orange-600 relative overflow-hidden">
-        {/* Abstract pattern */}
-        <div className="absolute inset-0 opacity-20" style={{backgroundImage: 'radial-gradient(circle at 2px 2px, black 1px, transparent 0)', backgroundSize: '40px 40px'}}></div>
-        
-        <div className="max-w-4xl mx-auto px-4 text-center relative z-10">
-          <h2 className="text-4xl md:text-6xl font-oswald font-bold text-black mb-6 uppercase leading-tight">Construct The Impossible</h2>
-          <p className="text-xl text-black/80 mb-10 max-w-2xl mx-auto font-medium">Initialize your project with industry-leading experts and data-driven planning.</p>
-          <div className="flex flex-col sm:flex-row justify-center gap-6">
-            <button 
+      {/* Light-Optimized CTA Section */}
+      <section className="py-16 bg-gradient-to-b from-white to-gray-50 border-t border-gray-100 text-gray-900 px-4">
+        <div className="max-w-md mx-auto text-center">
+          <h2 className="text-2xl font-black mb-3 tracking-tight">Construct Your Space</h2>
+          <p className="text-gray-500 text-xs mb-8 max-w-xs mx-auto leading-relaxed">Initialize parameters directly via verified structural frameworks.</p>
+          <div className="flex flex-col gap-3">
+            {/* <button 
               onClick={() => handleNavigate(Page.CONTACT)}
-              className="bg-black text-white px-10 py-5 font-bold uppercase tracking-widest hover:scale-105 transition-transform shadow-2xl"
+              className="w-full bg-orange-600 hover:bg-orange-700 text-white py-3.5 rounded-xl font-bold text-sm tracking-wide shadow-lg shadow-orange-600/10 transition-colors"
             >
               Start Project
-            </button>
+            </button> */}
+            <a 
+              href="tel:+919986633447"
+              className="w-full bg-orange-600 hover:bg-orange-700 text-white py-3.5 rounded-xl font-bold text-sm tracking-wide shadow-lg shadow-orange-600/10 transition-colors flex items-center justify-center"
+            >
+              Call Now <ArrowUpRight className="ml-1.5 h-4 w-4 text-white" />
+            </a>
             <button 
               onClick={() => handleNavigate(Page.PLANNING)}
-              className="bg-white text-black px-10 py-5 font-bold uppercase tracking-widest hover:scale-105 transition-transform shadow-2xl flex items-center justify-center"
+              className="w-full bg-white border border-gray-200 text-gray-700 hover:bg-gray-50 py-3.5 rounded-xl font-bold text-sm tracking-wide flex items-center justify-center transition-colors"
             >
-              Cost Estimator <ArrowUpRight className="ml-2 h-5 w-5" />
+              Cost Estimator <ArrowUpRight className="ml-1.5 h-4 w-4 text-orange-600" />
             </button>
           </div>
         </div>
@@ -178,191 +185,227 @@ const App: React.FC = () => {
     </>
   );
 
-  // Reusing components layout but adapting to dark theme logic where simple structural reuse isn't enough
-  // For brevity in this big file, I'll inline the simple page renders with the new styles
-
   const renderServices = () => (
-  <div className="pt-24 pb-20 bg-neutral-950 min-h-screen">
-    <WhatsAppQuoteForm />
-
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div className="text-center mb-16">
-        <h1 className="text-5xl md:text-6xl font-oswald font-bold text-white mb-4 uppercase">
-          Our Expertise
-        </h1>
-        <p className="text-xl text-neutral-400 max-w-3xl mx-auto">
-          Precision engineering across all sectors.
-        </p>
-      </div>
-
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-        {SERVICES.map((service, index) => (
-          <div
-            key={service.id}
-            className="bg-neutral-900 border border-neutral-800 p-8 hover:border-orange-500 transition-all group"
-          >
-            {/* Icon / Index */}
-            <div className="text-orange-500 mb-6">
-              <div className="h-12 w-12 border-2 border-orange-500 flex items-center justify-center font-bold text-xl group-hover:bg-orange-500 group-hover:text-black transition-colors">
-                {String(index + 1).padStart(2, '0')}
+    <div className="pt-24 pb-16 bg-white min-h-screen px-4">
+      {/* <WhatsAppQuoteForm /> */}
+      <div className="max-w-7xl mx-auto">
+        <div className="text-center mb-10">
+          <h1 className="text-2xl font-bold text-gray-900 mb-2">Our Expertise</h1>
+          <p className="text-xs text-gray-500">Precision systems across all architectural options.</p>
+        </div>
+        <div className="space-y-4">
+          {SERVICES.map((service, index) => (
+            <div key={service.id} className="bg-gray-50 border border-gray-200 p-5 rounded-2xl shadow-sm">
+              <div className="text-orange-600 mb-2 font-mono text-sm font-bold">
+                {String(index + 1).padStart(2, '0')}.
               </div>
+              <h3 className="text-base font-bold text-gray-900 mb-2">{service.title}</h3>
+              <p className="text-gray-600 text-xs leading-relaxed mb-4">{service.description}</p>
+              <ul className="space-y-1.5 text-gray-700 text-xs">
+                {service.points.map((point, i) => (
+                  <li key={i} className="flex items-center">
+                    <span className="text-orange-600 mr-2 font-bold">•</span>
+                    <span>{point}</span>
+                  </li>
+                ))}
+              </ul>
             </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
 
-            {/* Title */}
-            <h3 className="text-3xl font-oswald font-bold text-white mb-4 uppercase">
-              {service.title}
-            </h3>
-
-            {/* Description */}
-            <p className="text-neutral-400 mb-6 leading-relaxed">
-              {service.description}
-            </p>
-
-            {/* Points */}
-            <ul className="space-y-3 text-neutral-300 text-sm font-mono">
-              {service.points.map((point, i) => (
-                <li key={i} className="flex items-start">
-                  <span className="text-orange-500 mr-2">&gt;</span>
-                  <span>{point}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
+  const renderProjects = () => (
+  <div className="pt-24 pb-16 bg-white min-h-screen px-4">
+    <div className="max-w-7xl mx-auto">
+      <div className="text-center mb-10">
+        <h1 className="text-2xl font-bold text-gray-900 mb-2">Portfolio</h1>
+        <p className="text-xs text-gray-500">Engineering milestones and architecture layout pipelines.</p>
+      </div>
+      
+      {/* Responsive Grid: 1 Column on Mobile, 2 Columns on Tablets, 3 Columns on PC */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {PROJECTS.map((project) => (
+           <div 
+             key={project.id} 
+             className="bg-white border border-gray-200 rounded-2xl overflow-hidden shadow-sm flex flex-col justify-between group hover:shadow-md hover:border-gray-300/80 transition-all duration-300"
+           >
+             <div>
+               {/* Fixed layout height for desktop consistency */}
+               <div className="relative h-48 sm:h-56 overflow-hidden bg-gray-100">
+                 <img 
+                   src={project.imageUrl} 
+                   alt={project.title} 
+                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" 
+                 />
+                 <div className="absolute top-3 right-3 bg-orange-600 text-white text-[10px] font-black px-2.5 py-1 rounded-md uppercase tracking-wider shadow-sm">
+                   {project.category}
+                 </div>
+               </div>
+               <div className="p-5">
+                 <h3 className="text-base font-bold text-gray-900 mb-1 group-hover:text-orange-600 transition-colors">
+                   {project.title}
+                 </h3>
+                 <p className="text-gray-500 text-xs mb-4 leading-relaxed line-clamp-3">
+                   {project.description}
+                 </p>
+               </div>
+             </div>
+             
+             {/* Dynamic action footer aligned perfectly across grids */}
+             <div className="px-5 pb-5 pt-0">
+               <button 
+                 onClick={() => handleOpenProject(project)}
+                 className="text-orange-600 font-bold text-xs tracking-wide flex items-center hover:text-orange-700 transition-colors"
+               >
+                   View Blueprint <ArrowRight className="ml-1.5 h-3 w-3 group-hover:translate-x-1 transition-transform" />
+               </button>
+             </div>
+           </div>
         ))}
       </div>
     </div>
   </div>
 );
 
+  const renderProjectDetail = () => {
+    if (!selectedProject) return null;
 
-  const renderProjects = () => (
-    <div className="pt-24 pb-20 bg-neutral-950 min-h-screen">
-        <WhatsAppQuoteForm />
-       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h1 className="text-5xl md:text-6xl font-oswald font-bold text-white mb-4 uppercase">Portfolio</h1>
-            <p className="text-xl text-neutral-400">Engineering feats and architectural milestones.</p>
+    return (
+      <div className="pt-24 pb-16 bg-white min-h-screen px-4">
+        <div className="max-w-6xl mx-auto">
+          <button
+            onClick={() => handleNavigate(Page.PROJECTS)}
+            className="text-sm font-semibold text-orange-600 hover:text-orange-700 transition-colors"
+          >
+            ← Back to Portfolio
+          </button>
+
+          <div className="mt-8 grid grid-cols-1 lg:grid-cols-[1.1fr_0.9fr] gap-8 items-start">
+            <div className="overflow-hidden rounded-3xl border border-gray-200 shadow-sm bg-gray-100">
+              <img src={selectedProject.imageUrl} alt={selectedProject.title} className="w-full h-full object-cover" />
+            </div>
+
+            <div className="space-y-6">
+              <div>
+                <p className="text-[10px] font-bold uppercase tracking-[0.35em] text-orange-600">{selectedProject.category}</p>
+                <h1 className="mt-2 text-3xl font-black text-gray-900">{selectedProject.title}</h1>
+                <p className="mt-4 text-sm leading-relaxed text-gray-600">{selectedProject.description}</p>
+              </div>
+
+              <div className="rounded-2xl border border-gray-200 bg-gray-50 p-6">
+                <h2 className="text-sm font-bold uppercase tracking-[0.25em] text-gray-900">Project Details</h2>
+                <ul className="mt-4 space-y-3 text-sm text-gray-600">
+                  {selectedProject.details.map((detail) => (
+                    <li key={detail} className="flex items-start">
+                      <span className="mt-1 mr-2 text-orange-600">•</span>
+                      <span>{detail}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              <button
+                onClick={() => handleNavigate(Page.CONTACT)}
+                className="w-full rounded-2xl bg-orange-600 px-5 py-3 text-sm font-bold text-white transition-colors hover:bg-orange-700"
+              >
+                Discuss This Project
+              </button>
+            </div>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {PROJECTS.map((project) => (
-               <div key={project.id} className="bg-neutral-900 border border-neutral-800 group overflow-hidden">
-                 <div className="relative h-72 overflow-hidden">
-                   <img src={project.imageUrl} alt={project.title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 filter grayscale group-hover:grayscale-0" />
-                   <div className="absolute top-0 right-0 bg-orange-600 text-black text-xs font-bold px-4 py-2 uppercase tracking-widest">
-                     {project.category}
-                   </div>
-                 </div>
-                 <div className="p-8">
-                   <h3 className="text-2xl font-oswald font-bold text-white mb-3 uppercase">{project.title}</h3>
-                   <p className="text-neutral-400 text-sm mb-6 leading-relaxed border-l border-neutral-700 pl-4">{project.description}</p>
-                   <button className="text-orange-500 font-bold text-sm hover:text-white uppercase tracking-widest flex items-center">
-                       View Blueprint <ArrowRight className="ml-2 h-4 w-4" />
-                   </button>
-                 </div>
-               </div>
-            ))}
-          </div>
-       </div>
-    </div>
-  );
+        </div>
+      </div>
+    );
+  };
 
   const renderAbout = () => (
-    <div className="pt-24 pb-20 bg-neutral-950 min-h-screen">
-        <WhatsAppQuoteForm />
-       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-            <div className="relative">
-               <div className="absolute -top-4 -left-4 w-24 h-24 border-t-4 border-l-4 border-orange-500"></div>
-               <div className="absolute -bottom-4 -right-4 w-24 h-24 border-b-4 border-r-4 border-orange-500"></div>
-               <img 
-                 src="https://picsum.photos/800/800?random=team" 
-                 alt="Our Team" 
-                 className="w-full grayscale hover:grayscale-0 transition-all duration-700 shadow-2xl"
-               />
+    <div className="pt-24 pb-16 bg-white min-h-screen px-4">
+      {/* <WhatsAppQuoteForm /> */}
+      <div className="max-w-4xl mx-auto space-y-8">
+         <div className="relative shadow-sm rounded-2xl overflow-hidden border border-gray-200 bg-gray-100">
+            <img src="https://picsum.photos/800/600?random=team" alt="Our Team" className="w-full rounded-2xl object-cover h-64" />
+         </div>
+         <div>
+            <span className="text-orange-600 font-mono text-xs uppercase tracking-widest font-bold">Corporate Architecture</span>
+            <h1 className="text-2xl font-black text-gray-900 mt-1 mb-4">{COMPANY_NAME}<br />Systems Blueprint</h1>
+            <div className="space-y-3 text-gray-600 text-xs leading-relaxed">
+              <p>
+                We manage structural execution models from planning phases up through total handover deployment protocols.
+              </p>
+              <p>
+                Our structural units utilize premium grade workflow configurations to execute timelines up to 20% cleaner than basic architectural approaches.
+              </p>
             </div>
-            <div>
-               <h2 className="text-orange-500 font-bold uppercase tracking-widest mb-2">Our DNA</h2>
-               <h1 className="text-5xl md:text-6xl font-oswald font-bold text-white mb-8 uppercase leading-none">{COMPANY_NAME}<br />Future Built</h1>
-               <div className="space-y-6 text-neutral-400 text-lg leading-relaxed border-l-2 border-neutral-800 pl-6">
-                 <p>
-                   Established 2008. We didn't just join the construction industry; we re-engineered it. Avinya Ventures operates at the intersection of heavy industry and high technology.
-                 </p>
-                 <p>
-                   <strong className="text-white">Mission Protocol:</strong> Absolute precision. We utilize drone topography, advanced schedule optimization, and modern materials to deliver projects 20% faster than industry standard.
-                 </p>
+            <div className="mt-6 grid grid-cols-2 gap-3">
+               <div className="bg-gray-50 p-3 rounded-xl border-l-2 border-orange-600 border-y border-r border-gray-200/60">
+                   <h4 className="text-gray-900 font-bold text-xs">Certified Secure</h4>
+                   <p className="text-gray-400 text-[10px] mt-0.5">Absolute protocol match.</p>
                </div>
-               
-               <div className="mt-12 grid grid-cols-2 gap-6">
-                  <div className="bg-neutral-900 p-6 border-l-4 border-orange-500">
-                      <h4 className="text-white font-oswald font-bold text-xl uppercase">Safety First</h4>
-                      <p className="text-neutral-500 text-sm mt-2">Zero-accident protocols active on all sites.</p>
-                  </div>
-                  <div className="bg-neutral-900 p-6 border-l-4 border-orange-500">
-                      <h4 className="text-white font-oswald font-bold text-xl uppercase">Eco-Ready</h4>
-                      <p className="text-neutral-500 text-sm mt-2">LEED certified sustainable building practices.</p>
-                  </div>
+               <div className="bg-gray-50 p-3 rounded-xl border-l-2 border-orange-600 border-y border-r border-gray-200/60">
+                   <h4 className="text-gray-900 font-bold text-xs">Eco Framework</h4>
+                   <p className="text-gray-400 text-[10px] mt-0.5">LEED structural strategy.</p>
                </div>
             </div>
          </div>
-       </div>
+      </div>
     </div>
   );
 
   return (
-    <div className="min-h-screen flex flex-col bg-neutral-950 font-sans text-white selection:bg-orange-500 selection:text-black">
+    <div className="min-h-screen flex flex-col bg-white font-sans text-gray-800 antialiased selection:bg-orange-600 selection:text-white">
       <Navbar currentPage={currentPage} onNavigate={handleNavigate} />
       
       <main className="flex-grow">
         {currentPage === Page.HOME && renderHome()}
         {currentPage === Page.SERVICES && renderServices()}
         {currentPage === Page.PROJECTS && renderProjects()}
+        {currentPage === Page.PROJECT_DETAIL && renderProjectDetail()}
         {currentPage === Page.ABOUT && renderAbout()}
         {currentPage === Page.CONTACT && (
-            <>
-                <WhatsAppQuoteForm />
-                <ContactForm />
-            </>
+            <div className="pt-16">
+              <ContactForm />
+            </div>
         )}
         {currentPage === Page.PLANNING && (
-           <>
-             <WhatsAppQuoteForm />
-             <ConstructionPlanner />
-           </>
+           <div className="pt-16">{/* <WhatsAppQuoteForm /> */}<ConstructionPlanner /></div>
         )}
       </main>
 
-      <footer className="bg-black text-neutral-500 py-16 border-t border-neutral-900">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-4 gap-12">
+      {/* Styled Light-Premium Mobile-First Footer */}
+      <footer className="bg-gray-50 text-gray-500 py-10 px-4 border-t border-gray-200">
+        <div className="max-w-7xl mx-auto space-y-8">
           <div>
-             <h3 className="text-white text-2xl font-oswald font-bold mb-6 uppercase tracking-wide">AVINYA <span className="text-orange-500">VENTURES</span></h3>
-             <p className="mb-6 text-sm leading-relaxed">Defining the skyline of tomorrow. Precision. Strength. Innovation.</p>
+             <h3 className="text-gray-900 text-base font-black tracking-wider">SUMMIT <span className="text-orange-600">VENTURES</span></h3>
+             <p className="text-xs text-gray-500 mt-2 leading-relaxed">Defining structural deployment layers. Quality parameters. Scale implementation.</p>
           </div>
-          <div>
-            <h4 className="text-white font-bold mb-6 uppercase tracking-widest text-xs">Navigation</h4>
-            <ul className="space-y-3 text-sm">
-              <li onClick={() => handleNavigate(Page.SERVICES)} className="hover:text-orange-500 cursor-pointer transition-colors">Services</li>
-              <li onClick={() => handleNavigate(Page.PROJECTS)} className="hover:text-orange-500 cursor-pointer transition-colors">Portfolio</li>
-              <li onClick={() => handleNavigate(Page.ABOUT)} className="hover:text-orange-500 cursor-pointer transition-colors">Company</li>
-              <li onClick={() => handleNavigate(Page.CONTACT)} className="hover:text-orange-500 cursor-pointer transition-colors">Contact</li>
-            </ul>
-          </div>
-          <div>
-            <h4 className="text-white font-bold mb-6 uppercase tracking-widest text-xs">Sectors</h4>
-            <ul className="space-y-3 text-sm">
-              <li className="hover:text-orange-500 cursor-pointer">Residential High-Rise</li>
-              <li className="hover:text-orange-500 cursor-pointer">Commercial Retail</li>
-              <li className="hover:text-orange-500 cursor-pointer">Heavy Industrial</li>
-              <li className="hover:text-orange-500 cursor-pointer">Smart Cities</li>
-            </ul>
-          </div>
-          <div>
-            <h4 className="text-white font-bold mb-6 uppercase tracking-widest text-xs">Network</h4>
-            <div className="flex space-x-4 mb-6">
-              <a href="#" className="hover:text-orange-500 transition-colors"><Instagram className="h-5 w-5" /></a>
-              <a href="#" className="hover:text-orange-500 transition-colors"><Linkedin className="h-5 w-5" /></a>
-              <a href="#" className="hover:text-orange-500 transition-colors"><Facebook className="h-5 w-5" /></a>
+          
+          <div className="grid grid-cols-2 gap-6 pt-2">
+            <div>
+              <h4 className="text-gray-900 font-bold text-xs uppercase tracking-wide mb-3">Index</h4>
+              <ul className="space-y-2 text-xs">
+                <li onClick={() => handleNavigate(Page.SERVICES)} className="hover:text-orange-600 text-gray-600 cursor-pointer transition-colors">Services</li>
+                <li onClick={() => handleNavigate(Page.PROJECTS)} className="hover:text-orange-600 text-gray-600 cursor-pointer transition-colors">Portfolio</li>
+                <li onClick={() => handleNavigate(Page.ABOUT)} className="hover:text-orange-600 text-gray-600 cursor-pointer transition-colors">Company</li>
+              </ul>
             </div>
-            <p className="text-xs opacity-50">&copy; {new Date().getFullYear()} {COMPANY_NAME}. Building the Future.</p>
+            <div>
+              <h4 className="text-gray-900 font-bold text-xs uppercase tracking-wide mb-3">Sectors</h4>
+              <ul className="space-y-2 text-xs text-gray-500">
+                <li>V Villas</li>
+                <li>High Rises</li>
+                <li>Eco Frameworks</li>
+              </ul>
+            </div>
+          </div>
+
+          <div className="pt-6 border-t border-gray-200 flex justify-between items-center">
+            <div className="flex space-x-3">
+              <a href="#" className="text-gray-400 hover:text-orange-600 transition-colors"><Instagram className="h-4 w-4" /></a>
+              <a href="#" className="text-gray-400 hover:text-orange-600 transition-colors"><Linkedin className="h-4 w-4" /></a>
+              <a href="#" className="text-gray-400 hover:text-orange-600 transition-colors"><Facebook className="h-4 w-4" /></a>
+            </div>
+            <p className="text-[10px] text-gray-400">&copy; {new Date().getFullYear()} {COMPANY_NAME}.</p>
           </div>
         </div>
       </footer>

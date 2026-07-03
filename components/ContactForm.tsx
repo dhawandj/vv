@@ -14,9 +14,29 @@ const ContactForm: React.FC = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Form Submitted", formData);
+    
+    // Construct WhatsApp message template with clean formatting
+    const line1 = `*New Project Inquiry*`;
+    const line2 = `*Name:* ${formData.name}`;
+    const line3 = `*Phone:* ${formData.phone}`;
+    const line4 = `*Email:* ${formData.email}`;
+    const line5 = `*Service:* ${formData.service || 'Not Specified'}`;
+    const line6 = `*Brief:* ${formData.message}`;
+    
+    const fullText = `${line1}\n\n${line2}\n${line3}\n${line4}\n${line5}\n\n${line6}`;
+    
+    // Clean phone constant format to numeric digits for URL processing
+    const cleanWhatsAppNumber = COMPANY_PHONE.replace(/[^0-9]/g, '');
+    const whatsappUrl = `https://wa.me/${cleanWhatsAppNumber}?text=${encodeURIComponent(fullText)}`;
+    
     setIsSubmitted(true);
-    setTimeout(() => setIsSubmitted(false), 5000);
+    
+    // Open the WhatsApp redirection pipeline
+    setTimeout(() => {
+      window.open(whatsappUrl, '_blank');
+      setIsSubmitted(false);
+    }, 1200);
+
     setFormData({ name: '', email: '', phone: '', service: '', message: '' });
   };
 
@@ -25,8 +45,8 @@ const ContactForm: React.FC = () => {
   };
 
   return (
-    <div className="bg-neutral-950 py-20 relative overflow-hidden">
-      {/* Background decoration */}
+    <div className="bg-white py-20 relative overflow-hidden">
+      {/* Premium background decoration glow */}
       <div className="absolute top-0 right-0 w-96 h-96 bg-orange-600/5 rounded-full blur-3xl pointer-events-none"></div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -35,134 +55,134 @@ const ContactForm: React.FC = () => {
           {/* Info Side */}
           <div>
               <div className="mb-10">
-                 <h4 className="text-orange-500 font-bold uppercase tracking-widest mb-2">Connect</h4>
-                 <h2 className="text-5xl font-oswald font-bold text-white mb-6 uppercase">Start Your Project</h2>
-                 <p className="text-neutral-400 text-lg leading-relaxed">
+                 <h4 className="text-orange-600 font-bold uppercase tracking-widest mb-2 text-xs">Connect</h4>
+                 <h2 className="text-4xl md:text-5xl font-oswald font-black text-neutral-900 mb-6 uppercase tracking-tight">Start Your Project</h2>
+                 <p className="text-neutral-500 text-sm leading-relaxed max-w-md">
                      Ready to build the extraordinary? Our team is on standby to discuss your architectural vision.
                  </p>
               </div>
 
-              <div className="space-y-8">
-                <div className="flex items-start group">
-                  <div className="bg-neutral-900 p-4 border border-neutral-800 group-hover:border-orange-500 transition-colors">
-                     <Phone className="h-6 w-6 text-white" />
+              <div className="space-y-6">
+                <div className="flex items-center group">
+                  <div className="bg-neutral-50 p-4 border border-neutral-200 rounded-xl group-hover:border-orange-600 group-hover:bg-orange-50/30 transition-all duration-300">
+                     <Phone className="h-5 w-5 text-neutral-800 group-hover:text-orange-600" />
                   </div>
-                  <div className="ml-6">
-                    <p className="font-oswald text-lg text-white uppercase tracking-wide">Call Us</p>
-                    <p className="text-neutral-400">{COMPANY_PHONE}</p>
-                  </div>
-                </div>
-
-                <div className="flex items-start group">
-                  <div className="bg-neutral-900 p-4 border border-neutral-800 group-hover:border-orange-500 transition-colors">
-                     <Mail className="h-6 w-6 text-white" />
-                  </div>
-                  <div className="ml-6">
-                    <p className="font-oswald text-lg text-white uppercase tracking-wide">Email Us</p>
-                    <p className="text-neutral-400">{COMPANY_EMAIL}</p>
+                  <div className="ml-5">
+                    <p className="font-oswald text-[10px] font-bold text-neutral-400 uppercase tracking-widest">Call Us</p>
+                    <p className="text-neutral-800 font-bold text-sm mt-0.5">{COMPANY_PHONE}</p>
                   </div>
                 </div>
 
-                <div className="flex items-start group">
-                  <div className="bg-neutral-900 p-4 border border-neutral-800 group-hover:border-orange-500 transition-colors">
-                     <MapPin className="h-6 w-6 text-white" />
+                <div className="flex items-center group">
+                  <div className="bg-neutral-50 p-4 border border-neutral-200 rounded-xl group-hover:border-orange-600 group-hover:bg-orange-50/30 transition-all duration-300">
+                     <Mail className="h-5 w-5 text-neutral-800 group-hover:text-orange-600" />
                   </div>
-                  <div className="ml-6">
-                    <p className="font-oswald text-lg text-white uppercase tracking-wide">HQ Location</p>
-                    <p className="text-neutral-400">{COMPANY_ADDRESS}</p>
+                  <div className="ml-5">
+                    <p className="font-oswald text-[10px] font-bold text-neutral-400 uppercase tracking-widest">Email Us</p>
+                    <p className="text-neutral-800 font-bold text-sm mt-0.5">{COMPANY_EMAIL}</p>
+                  </div>
+                </div>
+
+                <div className="flex items-center group">
+                  <div className="bg-neutral-50 p-4 border border-neutral-200 rounded-xl group-hover:border-orange-600 group-hover:bg-orange-50/30 transition-all duration-300">
+                     <MapPin className="h-5 w-5 text-neutral-800 group-hover:text-orange-600" />
+                  </div>
+                  <div className="ml-5">
+                    <p className="font-oswald text-[10px] font-bold text-neutral-400 uppercase tracking-widest">HQ Location</p>
+                    <p className="text-neutral-800 font-bold text-sm mt-0.5">{COMPANY_ADDRESS}</p>
                   </div>
                 </div>
               </div>
           </div>
 
           {/* Form Side */}
-          <div className="bg-neutral-900/50 backdrop-blur-md p-8 md:p-10 border border-neutral-800 relative">
-             <div className="absolute top-0 left-0 w-2 h-20 bg-orange-600"></div>
+          <div className="bg-neutral-50/60 backdrop-blur-md p-8 md:p-10 border border-neutral-200 rounded-2xl relative shadow-sm">
+             <div className="absolute top-0 left-0 w-2 h-20 bg-orange-600 rounded-tl-2xl"></div>
             
             {isSubmitted ? (
-              <div className="h-full flex flex-col items-center justify-center text-center py-20 animate-enter">
-                <div className="bg-green-500/20 p-6 rounded-full mb-6 border border-green-500/50">
-                  <Send className="h-12 w-12 text-green-500" />
+              <div className="h-full flex flex-col items-center justify-center text-center py-20 animate-fade-in">
+                <div className="bg-orange-50 p-5 rounded-full mb-4 border border-orange-200 shadow-sm">
+                  <Send className="h-8 w-8 text-orange-600" />
                 </div>
-                <h3 className="text-3xl font-oswald font-bold text-white mb-2 uppercase">Transmission Sent</h3>
-                <p className="text-neutral-400">Our engineers will analyze your request.</p>
+                <h3 className="text-xl font-oswald font-black text-neutral-900 mb-1 uppercase tracking-wide">Routing to WhatsApp</h3>
+                <p className="text-neutral-500 text-xs">Opening secure transmission channel...</p>
               </div>
             ) : (
-              <form onSubmit={handleSubmit} className="space-y-6">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <form onSubmit={handleSubmit} className="space-y-5">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                   <div className="group">
-                    <label className="block text-xs font-bold text-neutral-500 uppercase tracking-widest mb-2 group-focus-within:text-orange-500 transition-colors">Full Name</label>
+                    <label className="block text-[10px] font-bold text-neutral-400 uppercase tracking-widest mb-2 group-focus-within:text-orange-600 transition-colors">Full Name</label>
                     <input
                       required
                       type="text"
                       name="name"
                       value={formData.name}
                       onChange={handleChange}
-                      className="w-full bg-neutral-950 border border-neutral-800 text-white px-4 py-4 focus:border-orange-500 focus:ring-1 focus:ring-orange-500 outline-none transition-all placeholder:text-neutral-700"
-                      placeholder="ENTER NAME"
+                      className="w-full bg-white border border-neutral-200 text-neutral-900 px-4 py-3.5 rounded-xl focus:border-orange-600 focus:ring-1 focus:ring-orange-600 outline-none transition-all placeholder:text-neutral-300 text-sm font-medium"
+                      placeholder="Your Name"
                     />
                   </div>
                   <div className="group">
-                    <label className="block text-xs font-bold text-neutral-500 uppercase tracking-widest mb-2 group-focus-within:text-orange-500 transition-colors">Contact Number</label>
+                    <label className="block text-[10px] font-bold text-neutral-400 uppercase tracking-widest mb-2 group-focus-within:text-orange-600 transition-colors">Contact Number</label>
                     <input
                       required
                       type="tel"
                       name="phone"
                       value={formData.phone}
                       onChange={handleChange}
-                      className="w-full bg-neutral-950 border border-neutral-800 text-white px-4 py-4 focus:border-orange-500 focus:ring-1 focus:ring-orange-500 outline-none transition-all placeholder:text-neutral-700"
-                      placeholder="+1 (555) 000-0000"
+                      className="w-full bg-white border border-neutral-200 text-neutral-900 px-4 py-3.5 rounded-xl focus:border-orange-600 focus:ring-1 focus:ring-orange-600 outline-none transition-all placeholder:text-neutral-300 text-sm font-medium"
+                      placeholder="Mobile number"
                     />
                   </div>
                 </div>
 
                 <div className="group">
-                  <label className="block text-xs font-bold text-neutral-500 uppercase tracking-widest mb-2 group-focus-within:text-orange-500 transition-colors">Email Address</label>
+                  <label className="block text-[10px] font-bold text-neutral-400 uppercase tracking-widest mb-2 group-focus-within:text-orange-600 transition-colors">Email Address</label>
                   <input
                     required
                     type="email"
                     name="email"
                     value={formData.email}
                     onChange={handleChange}
-                    className="w-full bg-neutral-950 border border-neutral-800 text-white px-4 py-4 focus:border-orange-500 focus:ring-1 focus:ring-orange-500 outline-none transition-all placeholder:text-neutral-700"
-                    placeholder="CONTACT@EXAMPLE.COM"
+                    className="w-full bg-white border border-neutral-200 text-neutral-900 px-4 py-3.5 rounded-xl focus:border-orange-600 focus:ring-1 focus:ring-orange-600 outline-none transition-all placeholder:text-neutral-300 text-sm font-medium"
+                    placeholder="name@example.com"
                   />
                 </div>
 
                 <div className="group">
-                   <label className="block text-xs font-bold text-neutral-500 uppercase tracking-widest mb-2 group-focus-within:text-orange-500 transition-colors">Service Required</label>
+                   <label className="block text-[10px] font-bold text-neutral-400 uppercase tracking-widest mb-2 group-focus-within:text-orange-600 transition-colors">Service Required</label>
                   <select
                     name="service"
                     value={formData.service}
                     onChange={handleChange}
-                    className="w-full bg-neutral-950 border border-neutral-800 text-white px-4 py-4 focus:border-orange-500 outline-none transition-all"
+                    className="w-full bg-white border border-neutral-200 text-neutral-800 px-4 py-3.5 rounded-xl focus:border-orange-600 outline-none transition-all text-sm font-medium"
                   >
-                    <option value="">SELECT SERVICE TYPE...</option>
-                    <option value="Residential">Residential Construction</option>
-                    <option value="Commercial">Commercial Renovation</option>
-                    <option value="Industrial">Industrial Project</option>
-                    <option value="Other">Other Inquiry</option>
+                    <option value="">Select service type...</option>
+                    <option value="Residential Construction">Residential Construction</option>
+                    <option value="Commercial Renovation">Commercial Renovation</option>
+                    <option value="Industrial Blueprint">Industrial Project</option>
+                    <option value="Custom Design Plans">Other Design Inquiry</option>
                   </select>
                 </div>
 
                 <div className="group">
-                   <label className="block text-xs font-bold text-neutral-500 uppercase tracking-widest mb-2 group-focus-within:text-orange-500 transition-colors">Project Brief</label>
+                   <label className="block text-[10px] font-bold text-neutral-400 uppercase tracking-widest mb-2 group-focus-within:text-orange-600 transition-colors">Project Brief</label>
                   <textarea
                     required
                     rows={4}
                     name="message"
                     value={formData.message}
                     onChange={handleChange}
-                    className="w-full bg-neutral-950 border border-neutral-800 text-white px-4 py-4 focus:border-orange-500 focus:ring-1 focus:ring-orange-500 outline-none transition-all resize-none placeholder:text-neutral-700"
-                    placeholder="DESCRIBE YOUR VISION..."
+                    className="w-full bg-white border border-neutral-200 text-neutral-900 px-4 py-3.5 rounded-xl focus:border-orange-600 focus:ring-1 focus:ring-orange-600 outline-none transition-all resize-none placeholder:text-neutral-300 text-sm font-medium"
+                    placeholder="Describe your vision..."
                   />
                 </div>
 
                 <button
                   type="submit"
-                  className="w-full bg-white text-black font-oswald font-bold text-lg py-4 uppercase tracking-wider hover:bg-orange-500 hover:text-white transition-all flex items-center justify-center group"
+                  className="w-full bg-orange-600 text-white font-oswald font-bold text-sm py-4 uppercase tracking-wider hover:bg-orange-700 transition-all flex items-center justify-center rounded-xl shadow-md shadow-orange-600/10 group"
                 >
-                  Initiate Request <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
+                  Initiate via WhatsApp <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
                 </button>
               </form>
             )}
